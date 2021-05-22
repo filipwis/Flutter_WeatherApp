@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_weather_app/layout/screens/SearchScreen.dart';
 import 'package:flutter_weather_app/layout/widgets/FavouritePlacesSidebar.dart';
 import 'package:flutter_weather_app/layout/widgets/HourPicker.dart';
@@ -21,6 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool darkModeOn = brightness == Brightness.dark;
     return Scaffold(
         body: SafeArea(
             child: Stack(
@@ -46,7 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       )),
                   IconButton(
                       onPressed: () => {_changeSidebarState()},
-                      icon: Image.asset('assets/menu.png')),
+                      icon: darkModeOn
+                          ? Image.asset('assets/menu-white-outline.png')
+                          : Image.asset('assets/menu.png')),
                 ],
               ),
             ),
@@ -60,7 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 IconButton(
                     onPressed: () => {setState(() => isChecked = !isChecked)},
                     icon: isChecked
-                        ? Image.asset('assets/heart.png')
+                        ? darkModeOn
+                            ? Image.asset('assets/heart-white-outline.png')
+                            : Image.asset('assets/heart.png')
                         : Image.asset('assets/heart-red.png')),
                 SizedBox(width: 25.0),
                 Text(
