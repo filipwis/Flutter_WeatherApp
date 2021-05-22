@@ -13,10 +13,12 @@ class _FavouritePalceSidebarState extends State<FavouritePalceSidebar> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool darkModeOn = brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Container(
-        color: Colors.white,
+        color: darkModeOn ? Colors.grey[850] : Colors.white,
         height: MediaQuery.of(context).size.height,
         width: 260,
         child: Column(

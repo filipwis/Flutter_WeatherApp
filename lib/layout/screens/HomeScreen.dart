@@ -49,7 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       )),
                   IconButton(
                       onPressed: () => {_changeSidebarState()},
-                      icon: Image.asset('assets/menu.png')),
+                      icon: darkModeOn
+                          ? Image.asset('assets/menu-white-outline.png')
+                          : Image.asset('assets/menu.png')),
                 ],
               ),
             ),
