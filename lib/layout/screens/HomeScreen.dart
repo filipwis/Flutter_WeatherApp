@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_weather_app/layout/screens/SearchScreen.dart';
 import 'package:flutter_weather_app/layout/widgets/FavouritePlacesSidebar.dart';
 import 'package:flutter_weather_app/layout/widgets/HourPicker.dart';
+import 'package:geolocator/geolocator.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,11 +14,22 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var isChecked = false;
   var isSideBarOpen = false;
+  late Position _position;
 
   void _changeSidebarState() {
     setState(() {
       isSideBarOpen = !isSideBarOpen;
     });
+  }
+
+  @override
+  void initState() {
+    _determinePosition().then((Position position) {
+      setState(() {
+        _position = position;
+      });
+    });
+    super.initState();
   }
 
   @override
@@ -171,7 +183,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    //
                     SizedBox(
                       width: 15.0,
                     ),
@@ -273,5 +284,31 @@ class _HomeScreenState extends State<HomeScreen> {
         isSideBarOpen ? FavouritePalceSidebar(_changeSidebarState) : SizedBox(),
       ],
     )));
+  }
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best);
   }
 }
