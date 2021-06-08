@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_weather_app/data/Weather.dart';
 import 'package:flutter_weather_app/layout/screens/SearchScreen.dart';
 import 'package:flutter_weather_app/layout/widgets/FavouritePlacesSidebar.dart';
 import 'package:flutter_weather_app/layout/widgets/HourPicker.dart';
@@ -97,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 5.0,
                   ),
-                  Text(state.weather.temperature.substring(0, 2) + '°',
+                  Text(state.weather.temperature + '°',
                       style: TextStyle(
                           fontSize: 50.0, fontWeight: FontWeight.w600)),
                   SizedBox(
@@ -171,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 170,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: 4,
+                            itemCount: 3,
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding:
@@ -186,14 +187,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 15.0,
                                     ),
                                     Text(
-                                      '13°',
+                                      state.weather
+                                              .getForecastTemp(
+                                                  DateTime.now()
+                                                      .add(Duration(
+                                                          days: index + 1))
+                                                      .day,
+                                                  12)
+                                              .temperature
+                                              .toString() +
+                                          '°',
                                       style: TextStyle(fontSize: 30.0),
                                     ),
                                     Container(
-                                      width: 90,
-                                      height: 90,
-                                      child: Image.asset('assets/storm.png'),
-                                    ),
+                                        width: 90,
+                                        height: 90,
+                                        child: Image.asset(_getWeatherIcon(state
+                                            .weather
+                                            .getForecastTemp(
+                                                DateTime.now()
+                                                    .add(Duration(
+                                                        days: index + 1))
+                                                    .day,
+                                                12)
+                                            .icon))),
                                   ],
                                 ),
                               );
@@ -292,4 +309,24 @@ class _HomeScreenState extends State<HomeScreen> {
         return "Niedziela";
     }
   }
+
+  // _getforecast(Weather obj, int index) {
+  //   List<Weather> dayOne = [];
+  //   List<Weather> dayTwo = [];
+  //   List<Weather> dayThree = [];
+  //   List<Weather> dayFour = [];
+  //   // if()
+  //   for (final item in obj.forecast!) {
+  //     if (item.date.day == DateTime.now().add(Duration(days: 1)).day) {
+  //       dayOne.add(Weather(
+  //           cityName: item.cityName,
+  //           date: item.date,
+  //           temperature: item.temperature,
+  //           icon: item.icon));
+  //       // if (item.date.hour == 12) {
+  //       //   return item.temperature.substring(0, item.temperature.indexOf("."));
+  //       // }
+  //     }
+  //   }
+  // }
 }
