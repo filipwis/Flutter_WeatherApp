@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_weather_app/data/Weather.dart';
 import 'package:flutter_weather_app/layout/screens/SearchScreen.dart';
 import 'package:flutter_weather_app/layout/widgets/FavouritePlacesSidebar.dart';
-import 'package:flutter_weather_app/layout/widgets/HourPicker.dart';
 import 'package:flutter_weather_app/logic/bloc/weather_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
@@ -72,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 20.0,
+                    height: 30.0,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -110,61 +108,28 @@ class _HomeScreenState extends State<HomeScreen> {
                         TextStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
                   ),
                   SizedBox(
-                    height: 50.0,
+                    height: 10.0,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        height: 160,
+                        height: 220,
                         child: Column(
                           children: [
-                            Text(
-                              'Pogoda',
-                              style: TextStyle(fontSize: 20.0),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
                             Container(
-                              width: 120,
-                              height: 120,
+                              width: 220,
+                              height: 220,
                               child: Image.asset(
                                   _getWeatherIcon(state.weather.icon)),
                             ),
                           ],
                         ),
                       ),
-                      Container(
-                        height: 160,
-                        child: Column(
-                          children: [
-                            Text(
-                              'Godzina',
-                              style: TextStyle(fontSize: 20.0),
-                            ),
-                            SizedBox(
-                              height: 55,
-                            ),
-                            GestureDetector(
-                              onTap: () => {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        HourPicker())
-                              },
-                              child: Text(
-                                DateFormat('Hm').format(state.weather.date),
-                                style: TextStyle(fontSize: 30.0),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
                     ],
                   ),
                   SizedBox(
-                    height: 20.0,
+                    height: 10.0,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(35.0),
@@ -187,30 +152,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 15.0,
                                     ),
                                     Text(
-                                      state.weather
-                                              .getForecastTemp(
-                                                  DateTime.now()
-                                                      .add(Duration(
-                                                          days: index + 1))
-                                                      .day,
-                                                  12)
-                                              .temperature
-                                              .toString() +
+                                      state.weather.forecast![index + 1]
+                                              .temperature +
                                           '°',
                                       style: TextStyle(fontSize: 30.0),
                                     ),
                                     Container(
                                         width: 90,
                                         height: 90,
-                                        child: Image.asset(_getWeatherIcon(state
-                                            .weather
-                                            .getForecastTemp(
-                                                DateTime.now()
-                                                    .add(Duration(
-                                                        days: index + 1))
-                                                    .day,
-                                                12)
-                                            .icon))),
+                                        child: Image.asset(
+                                          _getWeatherIcon(state.weather
+                                              .forecast![index + 1].icon),
+                                        )),
                                   ],
                                 ),
                               );
@@ -309,24 +262,4 @@ class _HomeScreenState extends State<HomeScreen> {
         return "Niedziela";
     }
   }
-
-  // _getforecast(Weather obj, int index) {
-  //   List<Weather> dayOne = [];
-  //   List<Weather> dayTwo = [];
-  //   List<Weather> dayThree = [];
-  //   List<Weather> dayFour = [];
-  //   // if()
-  //   for (final item in obj.forecast!) {
-  //     if (item.date.day == DateTime.now().add(Duration(days: 1)).day) {
-  //       dayOne.add(Weather(
-  //           cityName: item.cityName,
-  //           date: item.date,
-  //           temperature: item.temperature,
-  //           icon: item.icon));
-  //       // if (item.date.hour == 12) {
-  //       //   return item.temperature.substring(0, item.temperature.indexOf("."));
-  //       // }
-  //     }
-  //   }
-  // }
 }
