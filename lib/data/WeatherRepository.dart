@@ -1,19 +1,8 @@
 import 'dart:convert';
-
-import 'package:flutter_weather_app/data/WeatherApiClient.dart';
 import 'package:http/http.dart' as http;
 import 'Weather.dart';
 
 class WeatherRepository {
-  // final WeatherApiClient weatherApiClient;
-  // WeatherRepository({required this.weatherApiClient});
-
-  // Future<String> getWeather(
-  //     String cityName, double latitude, double longtitude) async {
-  //   var jsonData = weatherApiClient.fetchWeatherDataByCoordiantes(
-  //       latitude: latitude, longtitude: longtitude);
-  //   return jsonData;
-  // }
   Future<Weather> getWeatherByLocation(
       String latitude, String longtitude) async {
     final queryParameters = {

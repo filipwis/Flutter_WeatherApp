@@ -11,26 +11,29 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
           child: Column(
             children: [
               Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    onPressed: () {
-                      FocusScope.of(context).unfocus();
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.close_outlined),
-                    iconSize: 35.0,
-                  )),
-              Container(
-                width: 300,
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Wyszukaj miejscowości',
+                alignment: Alignment.center,
+                child: Column(children: [
+                  Container(
+                    width: 300,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Wyszukaj miejscowości',
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Wyszukaj",
+                      ))
+                ]),
               ),
             ],
           ),
