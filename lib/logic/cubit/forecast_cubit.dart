@@ -15,11 +15,9 @@ class ForecastCubit extends Cubit<ForecastState> {
 
   void addFavCity(String city) {
     emit(ForecastState(days: state.days, cities: state.cities..add(city)));
-    // print(state.cities);
   }
 
   void removeFavCity(String city) {
     emit(ForecastState(days: state.days, cities: state.cities..remove(city)));
-    // print(state.cities);
   }
 }

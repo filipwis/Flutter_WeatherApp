@@ -54,6 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           IconButton(
                               onPressed: () {
+                                if (isSideBarOpen == true) {
+                                  _changeSidebarState();
+                                }
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -160,7 +163,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Column(
                                     children: [
                                       Text(
-                                        _getWeekday(now.weekday + index + 1),
+                                        _getWeekday(DateFormat('EEEE').format(
+                                            now.add(
+                                                Duration(days: index + 1)))),
                                         style: TextStyle(fontSize: 20.0),
                                       ),
                                       SizedBox(
@@ -279,24 +284,21 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  _getWeekday(int day) {
-    if (day > 7) {
-      day -= 7;
-    }
+  _getWeekday(String day) {
     switch (day) {
-      case 1:
+      case "Monday":
         return "Poniedziałek";
-      case 2:
+      case "Tuesday":
         return "Wtorek";
-      case 3:
+      case "Wednesday":
         return "Środa";
-      case 4:
+      case "Thursday":
         return "Czwartek";
-      case 5:
+      case "Friday":
         return "Piątek";
-      case 6:
+      case "Saturday":
         return "Sobota";
-      case 7:
+      case "Sunday":
         return "Niedziela";
     }
   }

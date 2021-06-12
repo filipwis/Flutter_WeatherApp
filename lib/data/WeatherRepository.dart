@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_weather_app/logic/bloc/weather_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'Weather.dart';
 
@@ -6,7 +7,7 @@ class WeatherRepository {
   Future<Weather> getWeatherByLocation(
       String latitude, String longtitude) async {
     final queryParameters = {
-      'cnt': '12',
+      'cnt': '16',
       'lang': 'pl',
       'units': 'metric',
       'lat': latitude,
@@ -29,7 +30,7 @@ class WeatherRepository {
   Future<Weather> getWeatherByCityName(String cityName) async {
     final queryParameters = {
       'q': cityName,
-      'cnt': '12',
+      'cnt': '16',
       'lang': 'pl',
       'units': 'metric',
       'appid': 'f1a839e6b114796ba95c634735d5281b'

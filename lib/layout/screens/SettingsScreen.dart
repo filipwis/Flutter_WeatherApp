@@ -68,8 +68,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       },
                     ),
                     RadioListTile<int>(
-                      title: const Text('11 dni'),
-                      value: 10,
+                      title: const Text('14 dni'),
+                      value: 13,
                       groupValue: forecastState.days,
                       onChanged: (int? val) {
                         setState(() {
