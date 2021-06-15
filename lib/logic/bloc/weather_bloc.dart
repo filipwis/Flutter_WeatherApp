@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_weather_app/data/Weather.dart';
 import 'package:flutter_weather_app/data/WeatherRepository.dart';
-
 part 'weather_event.dart';
 part 'weather_state.dart';
 

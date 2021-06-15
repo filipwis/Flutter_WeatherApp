@@ -6,7 +6,7 @@ class WeatherRepository {
   Future<Weather> getWeatherByLocation(
       String latitude, String longtitude) async {
     final queryParameters = {
-      'cnt': '12',
+      'cnt': '16',
       'lang': 'pl',
       'units': 'metric',
       'lat': latitude,
@@ -29,7 +29,7 @@ class WeatherRepository {
   Future<Weather> getWeatherByCityName(String cityName) async {
     final queryParameters = {
       'q': cityName,
-      'cnt': '12',
+      'cnt': '16',
       'lang': 'pl',
       'units': 'metric',
       'appid': 'f1a839e6b114796ba95c634735d5281b'

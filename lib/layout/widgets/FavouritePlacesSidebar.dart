@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_weather_app/layout/screens/SettingsScreen.dart';
+import 'package:flutter_weather_app/logic/bloc/weather_bloc.dart';
 import 'package:flutter_weather_app/logic/cubit/forecast_cubit.dart';
 
 class FavouritePalceSidebar extends StatefulWidget {
@@ -11,8 +12,6 @@ class FavouritePalceSidebar extends StatefulWidget {
 }
 
 class _FavouritePalceSidebarState extends State<FavouritePalceSidebar> {
-  var favouritePlaces = ['Zakopane', 'Kraków', 'Sopot'];
-
   @override
   Widget build(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;
@@ -25,7 +24,6 @@ class _FavouritePalceSidebarState extends State<FavouritePalceSidebar> {
             width: 260,
             child: BlocBuilder<ForecastCubit, ForecastState>(
                 builder: (context, forecastState) {
-              print(forecastState.cities);
               return Column(
                 children: [
                   Row(
@@ -64,33 +62,45 @@ class _FavouritePalceSidebarState extends State<FavouritePalceSidebar> {
                   Container(
                       width: 300,
                       height: 250,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: forecastState.cities.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return ListTile(
-                              leading: IconButton(
-                                onPressed: () => {
-                                  BlocProvider.of<ForecastCubit>(context)
-                                      .removeFavCity(
-                                          forecastState.cities[index]),
-                                },
-                                icon: Image.asset('assets/heart-red.png'),
-                              ),
-                              title: TextButton(
-                                child: Text(
-                                  forecastState.cities[index],
-                                  style: TextStyle(fontWeight: FontWeight.w900),
-                                ),
-                                onPressed: () {},
-                                style: ButtonStyle(
-                                    alignment: Alignment.centerLeft),
-                              ),
-                            );
-                          }))
+                      child: forecastState.cities.length == 0
+                          ? Text(
+                              "Brak ulubionych lokalizacji... 🌎",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 15),
+                            )
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: forecastState.cities.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ListTile(
+                                  leading: IconButton(
+                                    onPressed: () => {
+                                      BlocProvider.of<ForecastCubit>(context)
+                                          .removeFavCity(
+                                              forecastState.cities[index]),
+                                    },
+                                    icon: Image.asset('assets/heart-red.png'),
+                                  ),
+                                  title: TextButton(
+                                    child: Text(
+                                      forecastState.cities[index],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w900),
+                                    ),
+                                    onPressed: () {
+                                      BlocProvider.of<WeatherBloc>(context).add(
+                                          FetchDataByCityName(
+                                              cityName:
+                                                  forecastState.cities[index]));
+                                      widget.changeSidebarState();
+                                    },
+                                    style: ButtonStyle(
+                                        alignment: Alignment.centerLeft),
+                                  ),
+                                );
+                              }))
                 ],
               );
             })));
-    // );
   }
 }
