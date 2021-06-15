@@ -34,6 +34,8 @@ dependencies:
   geolocator: ^7.0.3
   http: ^0.13.3
   intl: ^0.17.0
+  hydrated_bloc: ^7.0.1
+  path_provider: ^2.0.2
 
 dev_dependencies:
   flutter_test:

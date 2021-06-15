@@ -3,10 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_weather_app/layout/screens/HomeScreen.dart';
 import 'package:flutter_weather_app/logic/bloc/weather_bloc.dart';
 import 'package:flutter_weather_app/logic/cubit/forecast_cubit.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'data/WeatherRepository.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
   runApp(MyApp());
 }
 

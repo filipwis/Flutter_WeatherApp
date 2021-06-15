@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context, weatherState) {
         return BlocBuilder<ForecastCubit, ForecastState>(
             builder: (context, forecastState) {
+          print(weatherState);
           if (weatherState is WeatherLoaded) {
             return Stack(
               alignment: AlignmentDirectional.topEnd,

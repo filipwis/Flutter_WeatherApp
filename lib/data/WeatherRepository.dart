@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter_weather_app/logic/bloc/weather_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'Weather.dart';
 
