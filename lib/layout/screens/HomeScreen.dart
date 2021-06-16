@@ -41,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context, weatherState) {
         return BlocBuilder<ForecastCubit, ForecastState>(
             builder: (context, forecastState) {
-          print(weatherState);
           if (weatherState is WeatherLoaded) {
             return Stack(
               alignment: AlignmentDirectional.topEnd,
@@ -278,10 +277,10 @@ class _HomeScreenState extends State<HomeScreen> {
         return "assets/storm-and-rain.png";
       case '13d':
       case '13n':
-        return "assets/windy.png";
+        return "assets/snieg.png";
       case '50d':
       case '50n':
-        return "assets/windy.png";
+        return "assets/mgla.png";
     }
   }
 
